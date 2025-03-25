@@ -18,7 +18,58 @@ def addContact():
     contatos.append(aux_contatos)
 
 def listContacts(contacts):
-    print(sorted(contacts, key=lambda x: x["nome"]))
+    return sorted(contacts, key=lambda x: x["nome"])
+    
+def searchContact():
+    global contatos
+    search = str(input("Digite o nome do contato: "))
+    searchAux = []
+    for i in contatos:
+        if i["nome"] == search:
+            searchAux.append(i)
+    return sorted(searchAux, key=lambda x: x["nome"])
+
+def editContact():
+    whoEdit = 0
+    global contatos
+    while True:
+        try:
+            whoEdit = int(input("Digite o índice do contato que deseja editar: "))
+            break
+        except ValueError:
+            print("Por favor, digite apenas números")
+    editing = True
+    while editing == True:
+        print(contatos[whoEdit])
+        edit = int(input("O que gostaria de editar?\n1. Nome\n2. Número\n3. Favorito\n4. Parar de editar\nDigite sua escolha:"))
+        match edit:
+            case 1:
+                edit = str(input("Digite o nome novo deste contato: "))
+                contatos[whoEdit]["nome"] = edit
+            case 2:
+                edit = 0
+                while True:
+                    try:
+                        edit = int(input("Digite o novo número deste contato: "))
+                        break
+                    except ValueError:
+                        print("Por favor, digite apenas números (sem hífens e caracteres especiais)")
+                contatos[whoEdit]["numero"] = edit
+            case 3:
+                edit = 0
+                while True:
+                    try:
+                        edit = int(input("Gostaria de mudar o status de favorito deste contato?\n1. Sim\n2. Não\nDigite sua escolha: "))
+                        break
+                    except ValueError:
+                        print("Por favor, digite apenas um número")
+                if edit == 1:
+                    if contatos[whoEdit]["favorito"] == True:
+                        contatos[whoEdit]["favorito"] = False
+                    else:
+                        contatos[whoEdit]["favorito"] = True
+            case 4:
+                editing = False
 
 while power == True:
     choose = int(input("1. Adicionar um contato\n2. Listar todos os contatos\n3. Buscar um contato\n4. Atualizar um contato\n5. Remover um contato\n6. Marcar/Desmarcar um contato como favorito\n7. Listar apenas os contatos favoritos\n8. Sair do programa\nDigite sua escolha: "))
@@ -26,55 +77,11 @@ while power == True:
         case 1:
             addContact()
         case 2:
-            listContacts(contatos)
+            print(listContacts(contatos))
         case 3:
-            search = str(input("Digite o nome do contato: "))
-            searchAux = []
-            for i in contatos:
-                if i["nome"] == search:
-                    searchAux.append(i)
-            print(sorted(searchAux, key=lambda x: x["nome"]))
-            searchAux = []
+            print(searchContact())
         case 4:
-            whoEdit = 0
-            while True:
-                try:
-                    whoEdit = int(input("Digite o índice do contato que deseja editar: "))
-                    break
-                except ValueError:
-                    print("Por favor, digite apenas números")
-            editing = True
-            while editing == True:
-                print(contatos[whoEdit])
-                edit = str(input("O que gostaria de editar?\n1. Nome\n2. Número\n3. Favorito\n4. Parar de editar\nDigite sua escolha:"))
-                match choose:
-                    case 1:
-                        edit = str(input("Digite o nome novo deste contato: "))
-                        whoEdit["nome"] = edit
-                    case 2:
-                        edit = 0
-                        while True:
-                            try:
-                                edit = int(input("Digite o novo número deste contato: "))
-                                break
-                            except ValueError:
-                                print("Por favor, digite apenas números (sem hífens e caracteres especiais)")
-                        whoEdit["numero"] = edit
-                    case 3:
-                        edit = 0
-                        while True:
-                            try:
-                                edit = int(input("Gostaria de mudar o status de favorito deste contato?\n1. Sim\n2. Não\nDigite sua escolha: "))
-                                break
-                            except ValueError:
-                                print("Por favor, digite apenas um número")
-                        if edit == 1:
-                            if whoEdit["favorito"] == True:
-                                whoEdit["favorito"] = False
-                            else:
-                                whoEdit["favorito"] = True
-                    case 4:
-                        editing = False
+            editContact()
         case 5:
             print(contatos)
             while True:
