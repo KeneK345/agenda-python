@@ -100,7 +100,10 @@ def listFavorites():
     return sorted(searchAux, key=lambda x: x["nome"])
 
 while power == True:
-    choose = int(input("1. Adicionar um contato\n2. Listar todos os contatos\n3. Buscar um contato\n4. Atualizar um contato\n5. Remover um contato\n6. Marcar/Desmarcar um contato como favorito\n7. Listar apenas os contatos favoritos\n8. Sair do programa\nDigite sua escolha: "))
+    try:
+        choose = int(input("1. Adicionar um contato\n2. Listar todos os contatos\n3. Buscar um contato\n4. Atualizar um contato\n5. Remover um contato\n6. Marcar/Desmarcar um contato como favorito\n7. Listar apenas os contatos favoritos\n8. Sair do programa\nDigite sua escolha: "))
+    except ValueError:
+        choose = 8
     match choose:
         case 1:
             addContact()
@@ -116,5 +119,5 @@ while power == True:
             editFavorite()
         case 7:
             print(listFavorites())
-        case 8:
+        case _:
             power = False
