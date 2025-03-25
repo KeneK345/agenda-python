@@ -1,33 +1,33 @@
-def alphabetOrder(s):
-    return s["nome"]
 power = True
 contatos = []
+def addContact():
+    global contatos
+    aux_contatos = {}
+    joint = str(input("Digite o nome do contato: "))
+    aux_contatos["nome"] = joint
+    while True:
+        try:
+            joint = int(input("Digite o número do contato: "))
+            break
+        except ValueError:
+            print("Por favor, digite apenas números (sem hífens e caracteres especiais)")
+    aux_contatos["numero"] = joint
+    while True:
+        try:
+            joint = bool(input("O contato é um favorito? (Digite True ou False):"))
+            break
+        except ValueError:
+            print("Por favor, digite apenas False ou True. Atenção à inicial maiúscula!")
+    aux_contatos["favorito"] = joint
+    contatos.append(aux_contatos)
+    print(contatos)
 while power == True:
     choose = int(input("1. Adicionar um contato\n2. Listar todos os contatos\n3. Buscar um contato\n4. Atualizar um contato\n5. Remover um contato\n6. Marcar/Desmarcar um contato como favorito\n7. Listar apenas os contatos favoritos\n8. Sair do programa\nDigite sua escolha: "))
     match choose:
         case 1:
-            aux_contatos = {}
-            joint = str(input("Digite o nome do contato: "))
-            aux_contatos["nome"] = joint
-            while True:
-                try:
-                    joint = int(input("Digite o número do contato: "))
-                    break
-                except ValueError:
-                    print("Por favor, digite apenas números (sem hífens e caracteres especiais)")
-            aux_contatos["numero"] = joint
-            while True:
-                try:
-                    joint = bool(input("O contato é um favorito? (Digite True ou False):"))
-                    break
-                except ValueError:
-                    print("Por favor, digite apenas False ou True. Atenção à inicial maiúscula!")
-            aux_contatos["favorito"] = joint
-            contatos.append(aux_contatos)
-            print(contatos)
-            aux_contatos = {}
+            addContact()
         case 2:
-            contatosShow =  sorted(contatos, key=lambda x: x["nome"])
+            contatosShow = sorted(contatos, key=lambda x: x["nome"])
             print(contatosShow)
             contatosShow = []
         case 3:
@@ -36,7 +36,7 @@ while power == True:
             for i in contatos:
                 if i["nome"] == search:
                     searchAux.append(i)
-            print(searchAux.sort(key=alphabetOrder))
+            print(sorted(searchAux, key=lambda x: x["nome"]))
             searchAux = []
         case 4:
             whoEdit = 0
