@@ -62,13 +62,13 @@ def editContact():
                         edit = int(input("Gostaria de mudar o status de favorito deste contato?\n1. Sim\n2. Não\nDigite sua escolha: "))
                         break
                     except ValueError:
-                        print("Por favor, digite apenas um número")
+                        edit = 2
                 if edit == 1:
                     if contatos[whoEdit]["favorito"] == True:
                         contatos[whoEdit]["favorito"] = False
                     else:
                         contatos[whoEdit]["favorito"] = True
-            case 4:
+            case _:
                 editing = False
                 
 def removeContact():
@@ -85,7 +85,12 @@ def removeContact():
 def editFavorite():
     global contatos
     print(contatos)
-    whoFavorite = int(input("Digite o índice do contato que gostaria de marcar/desmarcar como favorito: "))
+    while True:
+        try:
+            whoFavorite = int(input("Digite o índice do contato que gostaria de marcar/desmarcar como favorito: "))
+            break
+        except ValueError:
+            print("Por favor, digite apenas números")
     if contatos[whoFavorite]["favorito"] == True:
         contatos[whoFavorite]["favorito"] = False
     else:
