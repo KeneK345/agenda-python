@@ -1,3 +1,5 @@
+def alphabetOrder(s):
+    return s["nome"]
 power = True
 contatos = []
 while power == True:
@@ -7,14 +9,25 @@ while power == True:
             aux_contatos = {}
             joint = str(input("Digite o nome do contato: "))
             aux_contatos["nome"] = joint
-            joint = int(input("Digite o número do contato: "))
+            while True:
+                try:
+                    joint = int(input("Digite o número do contato: "))
+                    break
+                except ValueError:
+                    print("Por favor, digite apenas números (sem hífens e caracteres especiais)")
             aux_contatos["numero"] = joint
-            joint = bool(input("O contato é um favorito? (Digite True ou False):"))
+            while True:
+                try:
+                    joint = bool(input("O contato é um favorito? (Digite True ou False):"))
+                    break
+                except ValueError:
+                    print("Por favor, digite apenas False ou True. Atenção à inicial maiúscula!")
             aux_contatos["favorito"] = joint
             contatos.append(aux_contatos)
+            print(contatos)
             aux_contatos = {}
         case 2:
-            contatosShow = contatos.sort()
+            contatosShow =  sorted(contatos, key=lambda x: x["nome"])
             print(contatosShow)
             contatosShow = []
         case 3:
@@ -23,10 +36,16 @@ while power == True:
             for i in contatos:
                 if i["nome"] == search:
                     searchAux.append(i)
-            print(searchAux.sort())
+            print(searchAux.sort(key=alphabetOrder))
             searchAux = []
         case 4:
-            whoEdit = int(input("Digite o índice do contato que deseja editar: "))
+            whoEdit = 0
+            while True:
+                try:
+                    whoEdit = int(input("Digite o índice do contato que deseja editar: "))
+                    break
+                except ValueError:
+                    print("Por favor, digite apenas números")
             editing = True
             while editing == True:
                 print(contatos[whoEdit])
@@ -36,10 +55,22 @@ while power == True:
                         edit = str(input("Digite o nome novo deste contato: "))
                         whoEdit["nome"] = edit
                     case 2:
-                        edit = str(input("Digite o novo número deste contato: "))
+                        edit = 0
+                        while True:
+                            try:
+                                edit = int(input("Digite o novo número deste contato: "))
+                                break
+                            except ValueError:
+                                print("Por favor, digite apenas números (sem hífens e caracteres especiais)")
                         whoEdit["numero"] = edit
                     case 3:
-                        edit = bool(input("Gostaria de mudar o status de favorito deste contato?\n1. Sim\n2. Não\nDigite sua escolha: "))
+                        edit = 0
+                        while True:
+                            try:
+                                edit = int(input("Gostaria de mudar o status de favorito deste contato?\n1. Sim\n2. Não\nDigite sua escolha: "))
+                                break
+                            except ValueError:
+                                print("Por favor, digite apenas um número")
                         if edit == 1:
                             if whoEdit["favorito"] == True:
                                 whoEdit["favorito"] = False
@@ -49,7 +80,12 @@ while power == True:
                         editing = False
         case 5:
             print(contatos)
-            whoDelete = int(input("Digite o índice do contato que gostaria de remover: "))
+            while True:
+                try:
+                    whoDelete = int(input("Digite o índice do contato que gostaria de remover: "))
+                    break
+                except ValueError:
+                    print("Por favor, digite apenas números")
             contatos.pop(whoDelete)
         case 6:
             print(contatos)
