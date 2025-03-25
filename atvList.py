@@ -7,7 +7,7 @@ while power == True:
             aux_contatos = {}
             joint = str(input("Digite o nome do contato: "))
             aux_contatos["nome"] = joint
-            joint = str(input("Digite o número do contato: "))
+            joint = int(input("Digite o número do contato: "))
             aux_contatos["numero"] = joint
             joint = bool(input("O contato é um favorito? (Digite True ou False):"))
             aux_contatos["favorito"] = joint
