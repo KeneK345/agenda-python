@@ -70,6 +70,34 @@ def editContact():
                         contatos[whoEdit]["favorito"] = True
             case 4:
                 editing = False
+                
+def removeContact():
+    global contatos
+    print(contatos)
+    while True:
+        try:
+            whoDelete = int(input("Digite o índice do contato que gostaria de remover: "))
+            break
+        except ValueError:
+            print("Por favor, digite apenas números")
+    contatos.pop(whoDelete)
+    
+def editFavorite():
+    global contatos
+    print(contatos)
+    whoFavorite = int(input("Digite o índice do contato que gostaria de marcar/desmarcar como favorito: "))
+    if contatos[whoFavorite]["favorito"] == True:
+        contatos[whoFavorite]["favorito"] = False
+    else:
+        contatos[whoFavorite]["favorito"] = True
+        
+def listFavorites():
+    global contatos
+    searchAux = []
+    for i in contatos:
+        if i["favorito"] == True:
+            searchAux.append(i)
+    return sorted(searchAux, key=lambda x: x["nome"])
 
 while power == True:
     choose = int(input("1. Adicionar um contato\n2. Listar todos os contatos\n3. Buscar um contato\n4. Atualizar um contato\n5. Remover um contato\n6. Marcar/Desmarcar um contato como favorito\n7. Listar apenas os contatos favoritos\n8. Sair do programa\nDigite sua escolha: "))
@@ -83,27 +111,10 @@ while power == True:
         case 4:
             editContact()
         case 5:
-            print(contatos)
-            while True:
-                try:
-                    whoDelete = int(input("Digite o índice do contato que gostaria de remover: "))
-                    break
-                except ValueError:
-                    print("Por favor, digite apenas números")
-            contatos.pop(whoDelete)
+            removeContact()
         case 6:
-            print(contatos)
-            whoFavorite = int(input("Digite o índice do contato que gostaria de marcar/desmarcar como favorito: "))
-            if contatos[whoFavorite["favorito"]] == True:
-                contatos[whoFavorite["favorito"]] = False
-            else:
-                contatos[whoFavorite["favorito"]] = True
+            editFavorite()
         case 7:
-            searchAux = []
-            for i in contatos:
-                if i["favorito"] == True:
-                    searchAux.append(i)
-            print(searchAux.sort())
-            searchAux = []
+            print(listFavorites())
         case 8:
             power = False
