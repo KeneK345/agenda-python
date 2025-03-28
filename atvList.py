@@ -1,5 +1,20 @@
+import json
 power = True
-contatos = []
+
+def saveContact(contact, file="contatos.json"):
+    with open(file, "w", encoding="utf-8") as f:
+        json.dump(contact, f, indent=None, ensure_ascii=False)
+
+def loadContacts(file="contatos.json"):
+    try:
+        with open(file, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return []
+    except json.JSONDecodeError:
+        return []
+
+contatos = loadContacts()
 
 def addContact():
     global contatos
@@ -16,6 +31,7 @@ def addContact():
     joint = bool(input("O contato é um favorito? (Digite qualquer coisa para marcar contato como favorito):"))
     aux_contatos["favorito"] = joint
     contatos.append(aux_contatos)
+    saveContact(contatos)
 
 def listContacts(contacts):
     return sorted(contacts, key=lambda x: x["nome"])
@@ -69,6 +85,7 @@ def editContact():
                     else:
                         contatos[whoEdit]["favorito"] = True
             case _:
+                saveContact(contatos)
                 editing = False
                 
 def removeContact():
@@ -81,6 +98,7 @@ def removeContact():
         except ValueError:
             print("Por favor, digite apenas números")
     contatos.pop(whoDelete)
+    saveContact(contatos)
     
 def editFavorite():
     global contatos
@@ -95,6 +113,7 @@ def editFavorite():
         contatos[whoFavorite]["favorito"] = False
     else:
         contatos[whoFavorite]["favorito"] = True
+    saveContact(contatos)
         
 def listFavorites():
     global contatos

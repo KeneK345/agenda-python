@@ -169,3 +169,6 @@ poetry.toml
 
 # LSP config files
 pyrightconfig.json
+
+# files from this directory
+contatos.json
