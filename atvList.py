@@ -50,11 +50,14 @@ def editContact():
     global contatos
     while True:
         try:
-            whoEdit = int(input("Digite o índice do contato que deseja editar: "))
+            whoEdit = int(input("Digite o número do contato que deseja editar: "))
             break
         except ValueError:
             print("Por favor, digite apenas números")
     editing = True
+    for i in contatos:
+        if i["numero"] == whoEdit:
+            whoEdit = contatos.index(i)
     while editing == True:
         print(contatos[whoEdit])
         edit = int(input("O que gostaria de editar?\n1. Nome\n2. Número\n3. Favorito\n4. Parar de editar\nDigite sua escolha:"))
